@@ -14,18 +14,17 @@ setVH()
 
 const useSSRMode = ref(false)
 
-console.log('env', import.meta.env.PROD);
 
 const { productionMode, vueVersion, importMap } = useVueImportMap({
-  runtimeDev: import.meta.env.PROD
-    ? `${location.origin}/vue.runtime.esm-browser.js`
-    : `${location.origin}/src/vue-dev-proxy`,
-  runtimeProd: import.meta.env.PROD
-    ? `${location.origin}/vue.runtime.esm-browser.prod.js`
-    : `${location.origin}/src/vue-dev-proxy-prod`,
-  serverRenderer: import.meta.env.PROD
-    ? `${location.origin}/server-renderer.esm-browser.js`
-    : `${location.origin}/src/vue-server-renderer-dev-proxy`,
+  runtimeDev: (import.meta as any).env.PROD
+      ? `${location.origin}/vue.runtime.esm-browser.js`
+      : `${location.origin}/src/vue-dev-proxy`,
+  runtimeProd: (import.meta as any).env.PROD
+      ? `${location.origin}/vue.runtime.esm-browser.prod.js`
+      : `${location.origin}/src/vue-dev-proxy-prod`,
+  serverRenderer: (import.meta as any).env.PROD
+      ? `${location.origin}/server-renderer.esm-browser.js`
+      : `${location.origin}/src/vue-server-renderer-dev-proxy`,
 })
 
 let hash = location.hash.slice(1)
@@ -70,7 +69,6 @@ const store = useStore(
   },
   hash,
 )
-// @ts-expect-error
 globalThis.store = store
 
 // persist state
