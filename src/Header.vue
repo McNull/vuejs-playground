@@ -35,13 +35,22 @@ const vueVersion = computed(() => {
     return 'loading...'
   }
   // return store.vueVersion || `@${__COMMIT__}`
-  return store.vueVersion || 'v3.4.27';
+  return store.vueVersion || '';
 })
 
 async function setVueVersion(v: string) {
   console.log(v);
   store.vueVersion = v
 }
+
+// HACK to force to download Vue 3.4.27
+
+import { nextTick } from 'vue'
+
+nextTick(() => {
+  store.vueVersion = 'v3.4.27';
+})
+
 
 function resetVueVersion() {
   store.vueVersion = null

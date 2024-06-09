@@ -1,0 +1,10 @@
+node_modules
+src
+.gitignore
+.dockerignore
+Dockerfile
+download-runtime.sh
+index.html
+README.md
+vercel.json
+vite.config.js

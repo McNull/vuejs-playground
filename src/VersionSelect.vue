@@ -45,6 +45,9 @@ async function fetchVersions(): Promise<string[]> {
   } else if (props.pkg === 'typescript') {
     return versions.filter(v => !v.includes('dev') && !v.includes('insiders'))
   }
+
+  console.log('versions', versions);
+
   return versions
 }
 
@@ -63,6 +66,8 @@ onMounted(() => {
     }
   })
 })
+
+
 </script>
 
 <template>

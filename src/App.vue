@@ -27,6 +27,7 @@ const { productionMode, vueVersion, importMap } = useVueImportMap({
       : `${location.origin}/src/vue-server-renderer-dev-proxy`,
 })
 
+
 let hash = location.hash.slice(1)
 if (hash.startsWith('__DEV__')) {
   hash = hash.slice(7)
@@ -103,7 +104,7 @@ onMounted(() => {
   // @ts-expect-error process shim for old versions of @vue/compiler-sfc dependency
   window.process = { env: {} }
 
-  toggleProdMode(); // HACK: force update to trigger download of Vue 
+  // toggleProdMode(); // HACK: force update to trigger download of Vue 
 })
 </script>
 
