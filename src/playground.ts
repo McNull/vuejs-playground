@@ -65,7 +65,6 @@ function usePlayground(store: any) {
   }
 
   function load(name: string) {
-    debugger;
     // set window url to the new name
     const query = new URLSearchParams(location.search);
     query.set(QUERY_KEY_NAME, name);

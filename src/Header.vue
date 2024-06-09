@@ -27,16 +27,19 @@ const emit = defineEmits([
 
 const { store } = props
 
-const currentCommit = __COMMIT__
+// const currentCommit = __COMMIT__
+
 
 const vueVersion = computed(() => {
   if (store.loading) {
     return 'loading...'
   }
-  return store.vueVersion || `@${__COMMIT__}`
+  // return store.vueVersion || `@${__COMMIT__}`
+  return store.vueVersion || 'v3.4.27';
 })
 
 async function setVueVersion(v: string) {
+  console.log(v);
   store.vueVersion = v
 }
 
@@ -108,12 +111,12 @@ window.addEventListener('keydown', (e) => {
     <div class="links">
       <VersionSelect v-model="store.typescriptVersion" pkg="typescript" label="TypeScript Version" />
       <VersionSelect :model-value="vueVersion" @update:model-value="setVueVersion" pkg="vue" label="Vue Version">
-        <li>
+        <!-- <li>
           <a @click="resetVueVersion">This Commit ({{ currentCommit }})</a>
-        </li>
-        <li>
+        </li> -->
+        <!-- <li>
           <a href="https://app.netlify.com/sites/vue-sfc-playground/deploys" target="_blank">Commits History</a>
-        </li>
+        </li> -->
       </VersionSelect>
       <button title="Toggle development production mode" class="toggle-prod" :class="{ prod }"
         @click="$emit('toggle-prod')">

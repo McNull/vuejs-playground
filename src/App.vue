@@ -14,6 +14,8 @@ setVH()
 
 const useSSRMode = ref(false)
 
+console.log('env', import.meta.env.PROD);
+
 const { productionMode, vueVersion, importMap } = useVueImportMap({
   runtimeDev: import.meta.env.PROD
     ? `${location.origin}/vue.runtime.esm-browser.js`
@@ -102,6 +104,8 @@ onMounted(() => {
 
   // @ts-expect-error process shim for old versions of @vue/compiler-sfc dependency
   window.process = { env: {} }
+
+  toggleProdMode(); // HACK: force update to trigger download of Vue 
 })
 </script>
 
