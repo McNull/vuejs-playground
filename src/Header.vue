@@ -75,6 +75,22 @@ import LoadDialog from './LoadDialog.vue'
 const playground = usePlayground(store);
 // playground.openLoadDialog();
 
+// bind cmd+n to openLoadDialog
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'n' && (e.metaKey || e.ctrlKey)) {
+    playground.openLoadDialog();
+    e.preventDefault();
+  }
+});
+
+// bind cmd+s to openSaveDialog
+window.addEventListener('keydown', (e) => {
+  if (e.key === 's' && (e.metaKey || e.ctrlKey)) {
+    playground.openSaveDialog();
+    e.preventDefault();
+  }
+});
+
 //////////////////////////
 
 </script>
@@ -307,7 +323,7 @@ h1 img {
   margin-left: 4px;
 }
 
-.playground-dialog form {
+/* .playground-dialog form {
   display: flex;
   flex-direction: column;
   gap: 0.5em;
@@ -331,5 +347,5 @@ h1 img {
   border-radius: 4px;
   border: 1px solid #666;
   
-}
+} */
 </style>

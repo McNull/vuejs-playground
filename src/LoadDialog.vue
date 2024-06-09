@@ -27,10 +27,25 @@ function onSubmit() {
 }
 
 watch(() => props.playground.loadDialog.open, (open) => {
+
+  function closeDialog() {
+    props.playground.loadDialog.open = false;
+  }
+
   if (open) {
     inputName.value?.focus();
     // select all text
     inputName.value?.select();
+
+    // add event listener to escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDialog();
+      }
+    });
+  } else {
+    // remove event listener
+    window.removeEventListener('keydown', closeDialog);
   }
 });
 
@@ -42,13 +57,12 @@ watch(() => props.playground.loadDialog.open, (open) => {
       <h1>New</h1>
       <form @submit.prevent="onSubmit">
         <label for="loadDialogName">Name</label>
-        <input ref="inputName" v-model="playground.loadDialog.name" id="loadDialogName">
+        <input type="text" ref="inputName" v-model="playground.loadDialog.name" id="loadDialogName">
         <div class="buttons">
-          <button @click.prevent="playground.loadDialog.open = false">Cancel</button>
           <input type="submit" value="Create">
+          <button @click.prevent="playground.loadDialog.open = false">Cancel</button>
         </div>
       </form>
-      <hr>
       <PlaygroundList :playground="playground" @name-click="(name: string) => playground.loadDialog.name = name" />
     </div>
   </Dialog>

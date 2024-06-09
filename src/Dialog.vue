@@ -76,8 +76,7 @@ nav {
 }
 
 .dialog {
-  background: white;
-  color: black;
+  
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
@@ -85,10 +84,80 @@ nav {
   max-width: 80%;
   max-height: 80%;
   overflow: auto;
+  opacity: 0;
+  transition: opacity 0.3s;
+
+  background-color: #ccc;
+  color: #333;
+  font-size: 110%;
+}
+
+.dialog, .dialog * {
+  box-sizing: border-box;
+}
+
+.dialog label {
+  font-weight: bold;
+}
+
+.dialog h1, .dialog h2, .dialog h3, .dialog h4, .dialog h5, .dialog h6 {
+  color: white;
+}
+
+.dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  margin-bottom: 1rem;
+}
+
+.dialog form input[type="text"] {
+  padding: 0.5em;
+  color: #333;
+  border-radius: 5px;
+  height: 2.5em;
+  background-color: #aaa;
+  border: none;
+  font-size: 1.5em;
+}
+
+.dialog form input[type="text"]:focus {
+  outline: none;
+}
+
+.dialog form input[type="submit"], .dialog form button {
+  height: 3em;
+  padding: 1em;
+  border-radius: 5px;
+  border: none;
+  background-color: #aaa;
+  color: white;
+  cursor: pointer;
+  /* font-size: 1em; */
+}
+
+.dialog form input[type="submit"] {
+  background-color: #333;
+  
+}
+
+.dialog form button:hover {
+  background-color: #888;
+}
+
+.dialog form input[type="submit"]:hover {
+  background-color: #666;
+}
+
+.dialog form .buttons {
+  display: flex;
+  gap: 0.5em;
+  justify-content: flex-end;
 }
 
 .open .dialog {
   pointer-events: all;
+  opacity: 1;
 }
 
 

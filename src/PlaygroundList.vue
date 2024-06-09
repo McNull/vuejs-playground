@@ -20,7 +20,9 @@ function removeSaved(name) {
 
 <template>
   <div v-if="props.playground.savedPlaygrounds.length" class="playground-list">
+    <hr>
     <h2>Playgrounds</h2>
+    <hr>
     <ul>
       <li v-for="name in props.playground.savedPlaygrounds" :key="name">
         <div class="item">
@@ -40,6 +42,7 @@ function removeSaved(name) {
         </div>
       </li>
     </ul>
+    <hr>
   </div>
 </template>
 
@@ -58,9 +61,35 @@ function removeSaved(name) {
   padding: 0.5em;
 }
 
+.playground-list .item .name {
+  width: 100%;
+  height: 2rem;
+  display:flex;
+  align-items: center;
+}
+
+.playground-list .item a {
+  display: block;
+  text-decoration: none;
+  width: 2rem;
+  width: 100%;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.playground-list .item a:hover {
+  color: #666;
+}
+
+.playground-list .item .buttons {
+  display: flex;
+  gap: 0.5em;
+}
+
 .playground-list .item button {
   background: none;
-  padding: 0.5em;
+  width: 3em;
+  height: 3em;
 
   border-radius: 4px;
   border: 1px solid #666;

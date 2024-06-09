@@ -1,10 +1,31 @@
 <script setup lang="ts">
+import { watch } from 'vue';
+
 import Dialog from './Dialog.vue';
 import PlaygroundList from './PlaygroundList.vue';
 
 const props = defineProps<{
   playground: any
 }>();
+
+watch(() => props.playground.saveDialog.open, (open) => {
+
+  function closeDialog() {
+    props.playground.saveDialog.open = false;
+  }
+
+  if (open) {
+    // add event listener to escape key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDialog();
+      }
+    })
+  } else {
+    // remove event listener
+    window.removeEventListener('keydown', closeDialog);
+  }
+});
 
 </script>
 
@@ -14,14 +35,14 @@ const props = defineProps<{
       <h1>Save</h1>
       <form @submit.prevent="playground.save">
         <label for="saveDialogName">Name</label>
-        <input v-model="playground.saveDialog.name" required id="saveDialogName">
+        <input type="text" v-model="playground.saveDialog.name" required id="saveDialogName">
         <div class="buttons">
-          <button @click="playground.saveDialog.open = false">Cancel</button>
           <input type="submit" value="Save" @click="playground.save">
+          <button @click="playground.saveDialog.open = false">Cancel</button>
         </div>
         
       </form>
-      <hr>
+      
       <PlaygroundList :playground="playground" @name-click="(name: string) => playground.saveDialog.name = name"/>
     </div>
   </Dialog>
