@@ -72,13 +72,13 @@ const store = useStore(
 globalThis.store = store
 
 // persist state
-watchEffect(() => {
-  const newHash = store
-    .serialize()
-    .replace(/^#/, useSSRMode.value ? `#__SSR__` : `#`)
-    .replace(/^#/, productionMode.value ? `#__PROD__` : `#`)
-  history.replaceState({}, '', newHash)
-})
+// watchEffect(() => {
+//   const newHash = store
+//     .serialize()
+//     .replace(/^#/, useSSRMode.value ? `#__SSR__` : `#`)
+//     .replace(/^#/, productionMode.value ? `#__PROD__` : `#`)
+//   history.replaceState({}, '', newHash)
+// })
 
 function toggleProdMode() {
   productionMode.value = !productionMode.value

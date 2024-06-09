@@ -9,6 +9,9 @@ import Download from './icons/Download.vue'
 import GitHub from './icons/GitHub.vue'
 import Reload from './icons/Reload.vue'
 import VersionSelect from './VersionSelect.vue'
+import Dialog from './Dialog.vue'
+
+import { Icon } from '@iconify/vue'
 
 const props = defineProps<{
   store: ReplStore
@@ -41,6 +44,7 @@ function resetVueVersion() {
   store.vueVersion = null
 }
 
+
 async function copyLink(e: MouseEvent) {
   if (e.metaKey) {
     // hidden logic for going to local debug from play.vuejs.org
@@ -60,83 +64,89 @@ function toggleDark() {
   )
   emit('toggle-theme', cls.contains('dark'))
 }
+
+//////////////////////////
+
+import usePlayground from './playground'
+// import PlaygroundList from './PlaygroundList.vue'
+import SaveDialog from './SaveDialog.vue'
+import LoadDialog from './LoadDialog.vue'
+
+const playground = usePlayground(store);
+// playground.openLoadDialog();
+
+//////////////////////////
+
 </script>
 
 <template>
+
+  <LoadDialog :playground="playground" />
+  <SaveDialog :playground="playground" />
+
   <nav>
     <h1>
       <img alt="logo" src="/logo.svg" />
       <span>Vue SFC Playground</span>
     </h1>
     <div class="links">
-      <VersionSelect
-        v-model="store.typescriptVersion"
-        pkg="typescript"
-        label="TypeScript Version"
-      />
-      <VersionSelect
-        :model-value="vueVersion"
-        @update:model-value="setVueVersion"
-        pkg="vue"
-        label="Vue Version"
-      >
+      <VersionSelect v-model="store.typescriptVersion" pkg="typescript" label="TypeScript Version" />
+      <VersionSelect :model-value="vueVersion" @update:model-value="setVueVersion" pkg="vue" label="Vue Version">
         <li>
           <a @click="resetVueVersion">This Commit ({{ currentCommit }})</a>
         </li>
         <li>
-          <a
-            href="https://app.netlify.com/sites/vue-sfc-playground/deploys"
-            target="_blank"
-            >Commits History</a
-          >
+          <a href="https://app.netlify.com/sites/vue-sfc-playground/deploys" target="_blank">Commits History</a>
         </li>
       </VersionSelect>
-      <button
-        title="Toggle development production mode"
-        class="toggle-prod"
-        :class="{ prod }"
-        @click="$emit('toggle-prod')"
-      >
+      <button title="Toggle development production mode" class="toggle-prod" :class="{ prod }"
+        @click="$emit('toggle-prod')">
         <span>{{ prod ? 'PROD' : 'DEV' }}</span>
       </button>
-      <button
-        title="Toggle server rendering mode"
-        class="toggle-ssr"
-        :class="{ enabled: ssr }"
-        @click="$emit('toggle-ssr')"
-      >
+      <button title="Toggle server rendering mode" class="toggle-ssr" :class="{ enabled: ssr }"
+        @click="$emit('toggle-ssr')">
         <span>{{ ssr ? 'SSR ON' : 'SSR OFF' }}</span>
       </button>
       <button title="Toggle dark mode" class="toggle-dark" @click="toggleDark">
         <Sun class="light" />
         <Moon class="dark" />
       </button>
-      <button title="Copy sharable URL" class="share" @click="copyLink">
-        <Share />
+
+      <button title="New playground" class="button-icon new-playground" @click="playground.openLoadDialog">
+        <Icon icon="eos-icons:content-new" />
       </button>
+
+      <button title="Save playground" class="button-icon save-playground" @click="playground.openSaveDialog">
+        <Icon icon="fluent-mdl2:save" />
+      </button>
+
+      <!-- <button title="Copy sharable URL" class="share" @click="copyLink">
+        <Share />
+      </button> -->
       <button title="Reload page" class="reload" @click="$emit('reload-page')">
         <Reload />
       </button>
-      <button
-        title="Download project files"
-        class="download"
-        @click="downloadProject(store)"
-      >
+      <button title="Download project files" class="download" @click="downloadProject(store)">
         <Download />
       </button>
-      <a
+      <!-- <a
         href="https://github.com/vuejs/core/tree/main/packages/sfc-playground"
         target="_blank"
         title="View on GitHub"
         class="github"
       >
         <GitHub />
-      </a>
+      </a> -->
     </div>
   </nav>
 </template>
 
 <style>
+button.button-icon svg {
+  width: 1.4rem;
+  height: 1.4rem;
+}
+
 nav {
   --bg: #fff;
   --bg-light: #fff;
@@ -288,12 +298,38 @@ h1 img {
   display: block;
 }
 
-.links > * {
+.links>* {
   display: flex;
   align-items: center;
 }
 
-.links > * + * {
+.links>*+* {
   margin-left: 4px;
+}
+
+.playground-dialog form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+}
+
+
+.playground-dialog input {
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+.playground-dialog .buttons {
+  display: flex;
+  gap: 0.5em;
+  justify-content: flex-end;
+}
+
+.playground-dialog .buttons button, .playground-dialog .buttons input[type="submit"]{
+  padding: 0.5em;
+  
+  border-radius: 4px;
+  border: 1px solid #666;
+  
 }
 </style>
