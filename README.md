@@ -1,19 +1,15 @@
-# SFC Playground
+# VUE JS Playground
 
-This is continuously deployed at [https://play.vuejs.org](https://play.vuejs.org).
+![Screen](screen.png)
 
-## Run Locally in Dev
+Modified version of the original Vue.js playground found at [https://play.vuejs.org](https://play.vuejs.org).
+This version doesn't use hashes to save the state of the app. It allows you to save playgrounds by name.
+It is more docker and webapp friendly: `docker pull mcnull/vue-playground:latest`. 
 
-In repo root:
 
-```sh
-pnpm dev-sfc
-```
+Modified version of the original Vue.js playground found at [https://play.vuejs.org](https://play.vuejs.org).
 
-## Build for Prod
+This version doesn't use hashes to save the state of the app. It allows you to save playgrounds by name.
 
-In repo root
+It is more docker and webapp friendly: `docker pull mcnull/vue-playground:latest`. 
 
-```sh
-pnpm build-sfc-playground
-```
