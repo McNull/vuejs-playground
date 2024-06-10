@@ -1,9 +1,0 @@
-services:
-  vue-playground:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: vue-playground
-    image: vue-playground
-    ports:
-      - 8080:3000

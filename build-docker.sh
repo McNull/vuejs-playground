@@ -1,0 +1,1 @@
+docker buildx build --platform linux/arm64,linux/amd64 -t mcnull/vue-playground:latest -t mcnull/vue-playground:1.0.0 --push .
